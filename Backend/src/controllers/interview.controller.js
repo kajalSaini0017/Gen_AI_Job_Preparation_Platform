@@ -1,5 +1,5 @@
 const pdfParse = require("pdf-parse");
-const generateInterviewReport = require("../services/ai.service")
+const {generateInterviewReport,generateResumePdf} = require("../services/ai.service")
 const interviewReportModel = require("../models/interview.model")
 
 async function generateInterviewReportController(req, res) {

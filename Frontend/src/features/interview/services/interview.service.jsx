@@ -52,8 +52,8 @@ export const getInterviewReportById = async (interviewId) => {
 export const getAllInterviewReports = async () => {
     try {
         const response = await api.get("/api/interview/")
-
         return response.data
+
     } catch (error) {
         console.error("Get all interview reports error:", error)
         throw error

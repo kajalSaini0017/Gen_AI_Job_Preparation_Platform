@@ -1,5 +1,7 @@
 const { GoogleGenAI } = require("@google/genai");
-const z = require('zod')
+const z = require('zod');
+const puppeteer = require('puppeteer')
+
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_API_KEY
@@ -196,9 +198,85 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         },
     });
     const interviewReport = interviewReportSchema.parse(JSON.parse(interaction.output_text));
-    
+
     return interviewReport;
 
 }
 
-module.exports = generateInterviewReport;
+async function generatePdfFromHTML(htmlContent) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" })
+    const pdfBuffer = await page.pdf({
+        format: "A4", margin:
+            { top: "20mm", bottom: "20mm", left: "15mm", right: "15mm" }
+    })
+    await browser.close()
+
+    return pdfBuffer;
+}
+
+async function generateResumePdf({ resume, selfDescription, jobDescription }) {
+    const resumeJsonSchema = {
+        type: "object",
+        properties: {
+            html: {
+                type: "string",
+                description: "Complete HTML content of the generated resume."
+            }
+        },
+        required: ["html"]
+    }
+
+    const resumeSchema = z.fromJSONSchema(resumeJsonSchema);
+
+    const prompt = `
+                       Generate a professional, ATS-friendly resume for the candidate.
+
+                             Candidate Resume:
+                              ${resume}
+
+                             Self Description:
+                ${selfDescription}
+                
+                Job Description:
+                ${jobDescription}
+                
+                Requirements:
+                
+                - Tailor the resume according to the job description.
+                - Highlight the candidate's relevant skills, projects and experience.
+                - Use natural, human-written language.
+                - Keep the resume concise and ideally 1-2 pages.
+                - Use a simple and professional design.
+                - Make the HTML clean and well structured.
+                - Include CSS inside the HTML.
+                - The HTML should be directly convertible to PDF using Puppeteer.
+                - Do not include explanations outside the HTML.
+                
+                Return JSON with exactly one field:
+                
+                {
+                    "html": "complete HTML resume"
+                }`
+
+    const interaction = await ai.interactions.create({
+        model: "gemini-3.5-flash",
+        input: prompt,
+        response_format: {
+            type: 'text',
+            mime_type: 'application/json',
+            schema: resumeJsonSchema
+        },
+    })
+
+    const resumeData = resumeSchema.parse(JSON.parse(interaction.output_text))
+
+
+    const pdfBuffer = await generatePdfFromHTML(resumeData.html)
+
+    return pdfBuffer;
+
+}
+
+module.exports = {generateInterviewReport, generateResumePdf};

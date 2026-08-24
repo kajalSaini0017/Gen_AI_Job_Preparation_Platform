@@ -4,11 +4,12 @@ import { useInterview } from "../hooks/interview.hook";
 
 
 function Home() {
-    const navigate = useNavigate()
-    const { loading, generateReport } = useInterview()
+
+    const { loading, generateReport, reports, getReports } = useInterview()
     const [jobDescription, setJobDescription] = useState("")
     const [selfDescription, setSelfDescription] = useState("")
     const resumeFileRef = useRef(null)
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         const resumeFile = resumeFileRef.current.files[0]
@@ -22,7 +23,7 @@ function Home() {
             navigate(`/interview/${interviewReport._id}`)
         }
     }
-    
+
     if (loading) {
         return (
             <main>
@@ -123,16 +124,124 @@ function Home() {
                 </div>
             </div>
 
-            {/* Recent Reports List */}
+
+            {/* Recent Reports */}
+            {/* Recent Reports */}
             <section className="w-full max-w-7xl mt-10 md:mt-12">
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-100 mb-4 md:mb-6">My Recent Interview Plans</h2>
-                <ul className="space-y-4 md:space-y-6 w-full">
-                    <li className="w-full p-4 md:p-6 border border-gray-700 rounded-xl hover:border-pink-500/50 hover:-translate-y-1 transition cursor-pointer bg-gray-800">
-                        <h3 className="font-medium text-gray-100 text-sm md:text-base">Untitled Position</h3>
-                        <p className="text-xs text-gray-500">Generated on 19/08/2026</p>
-                        <p className="text-sm md:text-base font-semibold text-green-400 mt-1">Match Score: 85%</p>
-                    </li>
-                </ul>
+
+                <div className="flex items-center justify-between mb-5">
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-semibold text-gray-100">
+                            My Recent Interview Plans
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Your recently generated interview strategies
+                        </p>
+                    </div>
+
+                    <span className="text-sm text-gray-400">
+                        {reports.length} {reports.length === 1 ? "Plan" : "Plans"}
+                    </span>
+                </div>
+
+                {reports.length === 0 ? (
+                    <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 text-center">
+                        <p className="text-gray-400">
+                            No interview plans found.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                        {reports.map((report) => (
+
+                            <div
+                                key={report._id}
+                                className="group bg-gray-800 border border-gray-700 rounded-2xl p-5 
+                                hover:border-pink-500/50 hover:-translate-y-1 
+                                      transition-all duration-300 shadow-lg hover:shadow-pink-500/10"  onClick={()=>navigate(`/interview/${report._id}`)}
+                            >
+
+                                {/* Card Header */}
+                                <div className="flex items-start justify-between gap-3">
+
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-pink-500/10 
+                                         border border-pink-500/20 flex items-center 
+                                         justify-center text-pink-400 text-lg">
+                                            ✦
+                                        </div>
+
+                                        <div>
+                                            <h3 className="font-semibold text-gray-100 
+                                             group-hover:text-pink-400 transition-colors">
+                                                {report.title || "Untitled Position"}
+                                            </h3>
+
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                Interview Plan
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    {/* Match Score */}
+                                    <span className="shrink-0 bg-green-500/10 
+                            border border-green-500/20 
+                            text-green-400 text-xs font-semibold 
+                            px-2.5 py-1 rounded-lg">
+                                        {report.matchScore}%
+                                    </span>
+
+                                </div>
+
+
+                                {/* Divider */}
+                                <div className="border-t border-gray-700 my-5" />
+
+
+                                {/* Card Information */}
+                                <div className="flex items-center justify-between">
+
+                                    {/* Generated Date */}
+                                    <div>
+                                        <p className="text-xs text-gray-500 mb-1">
+                                            Generated On
+                                        </p>
+
+                                        <p className="text-sm text-gray-300">
+                                            {new Date(report.createdAt).toLocaleDateString(
+                                                "en-IN",
+                                                {
+                                                    day: "2-digit",
+                                                    month: "short",
+                                                    year: "numeric"
+                                                }
+                                            )}
+                                        </p>
+                                    </div>
+
+
+                                    {/* Match Score */}
+                                    <div className="text-right">
+                                        <p className="text-xs text-gray-500 mb-1">
+                                            Match Score
+                                        </p>
+
+                                        <p className="text-lg font-bold text-green-400">
+                                            {report.matchScore}%
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        ))}
+
+                    </div>
+                )}
+
             </section>
 
             {/* Page Footer */}

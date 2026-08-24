@@ -7,7 +7,7 @@ const upload = require("../middleware/file.middleware")
 const interviewRouter = express.Router();
 
 /**
- * @routes POST/api/interview
+ * @routes POST/api/interview/
  * @description generate new interview report on the basis of user selfDescription, jobDescription and resume
  * @access Private
  */

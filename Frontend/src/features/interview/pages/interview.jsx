@@ -79,6 +79,7 @@ const Interview = () => {
     if (interviewId) {
       getReportById(interviewId)
     }
+   
   }, [interviewId])
 
   if (loading) {
@@ -97,7 +98,7 @@ const Interview = () => {
 
   const scoreColor =
     report.matchScore >= 80 ? "border-green-500" :
-    report.matchScore >= 60 ? "border-yellow-500" : "border-red-500"
+      report.matchScore >= 60 ? "border-yellow-500" : "border-red-500"
 
   return (
     <div className="w-full min-h-screen bg-gray-900 text-gray-100 flex flex-col md:flex-row p-4 md:p-6">
@@ -108,10 +109,9 @@ const Interview = () => {
           {NAV_ITEMS.map(item => (
             <button
               key={item.id}
-              className={`flex items-center gap-2 w-full px-2 py-1.5 lg:px-3 lg:py-2 rounded-md text-xs lg:text-sm transition ${
-                activeNav === item.id ? "bg-pink-500/10 text-pink-500" : "text-gray-400 hover:bg-gray-700 hover:text-gray-100"
-              }`}
-              onClick={() => setActiveNav(item.id)} 
+              className={`flex items-center gap-2 w-full px-2 py-1.5 lg:px-3 lg:py-2 rounded-md text-xs lg:text-sm transition ${activeNav === item.id ? "bg-pink-500/10 text-pink-500" : "text-gray-400 hover:bg-gray-700 hover:text-gray-100"
+                }`}
+              onClick={() => setActiveNav(item.id)}
             >
               <span className={`shrink-0 flex items-center justify-center w-6 h-6 border border-current text-[10px] font-bold ${item.iconShape || 'rounded-md'}`}>
                 {item.icon}
@@ -204,8 +204,13 @@ const Interview = () => {
             <span className="text-xs text-gray-400">match score</span>
           </div>
           <p className="text-xs text-gray-400 text-center mt-4">
-            Your profile is a strong match for this role.
+            {report.matchScore >= 80
+              ? "Your profile is a strong match for this role."
+              : report.matchScore >= 60
+                ? "Your profile is good for this role, but can be improved."
+                : "Your profile needs improvement for this role."}
           </p>
+
         </section>
 
         <section className="bg-gray-800 border border-gray-700 rounded-lg p-3 lg:p-4 min-w-0">
@@ -217,13 +222,12 @@ const Interview = () => {
             {skillGaps.map(({ skill, severity }) => (
               <li key={skill} className="min-w-0 flex items-center justify-between gap-2 py-1 text-sm">
                 <span className="min-w-0 flex-1 text-gray-300 wrap-break-word">{skill}</span>
-                <span className={`shrink-0 text-xs capitalize px-2 py-0.5 rounded-full border ${
-                  severity === 'high'
+                <span className={`shrink-0 text-xs capitalize px-2 py-0.5 rounded-full border ${severity === 'high'
                     ? 'text-red-400 bg-red-400/10 border-red-400/20'
                     : severity === 'medium'
                       ? 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
                       : 'text-green-400 bg-green-400/10 border-green-400/20'
-                }`}>
+                  }`}>
                   {severity}
                 </span>
               </li>
