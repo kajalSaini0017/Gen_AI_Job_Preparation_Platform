@@ -14,6 +14,10 @@ app.use(cors({
     credentials : true
 }))
 
+app.get("/",(req,res)=>{
+    res.send("Gen AI Job Prepration Platform is running")
+})
+
 /**
  * Use Authentication Routes 
  */
