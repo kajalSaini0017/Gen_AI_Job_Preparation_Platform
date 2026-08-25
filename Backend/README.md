@@ -13,6 +13,12 @@ Node.js and Express API for the Gen AI Job Preparation Platform.
 - Resume PDF generation
 - Token blacklist support for logout
 
+---
+
+## Live Link 
+https://gen-ai-job-preparation-platform.onrender.com
+
+
 ## Requirements
 
 - Node.js 18 or later

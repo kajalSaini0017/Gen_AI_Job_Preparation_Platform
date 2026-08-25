@@ -48,7 +48,7 @@ async function userRegisterController(req, res) {
         message: "User successFully Created",
         user: {
             id: user._id,
-            username: (await user).username,
+            username: user.username,
             email: user.email
         }
     })

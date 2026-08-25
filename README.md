@@ -12,6 +12,15 @@ A full-stack platform for preparing for technical interviews with AI-generated i
 - Resume PDF generation
 - React frontend with a Node.js and Express backend
 
+---
+## Frontend Live Link
+https://genaijobpreprationplatform.netlify.app
+
+---
+
+## Backend Live Link
+https://gen-ai-job-preparation-platform.onrender.com
+
 ## Project Structure
 
 ```text

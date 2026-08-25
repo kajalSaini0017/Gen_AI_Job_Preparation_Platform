@@ -10,6 +10,10 @@ React and Vite frontend for the Gen AI Job Preparation Platform.
 - Resume upload workflow
 - API requests with Axios and cookie credentials
 
+---
+## Live Link
+https://genaijobpreprationplatform.netlify.app
+
 ## Requirements
 
 - Node.js 18 or later
