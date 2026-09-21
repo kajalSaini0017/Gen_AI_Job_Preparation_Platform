@@ -10,10 +10,17 @@ export const useAuth = () => {
         setLoading(true);
         try {
             const data = await login({ email, password });
-            if (!data?.user) return;
+            if (!data?.user) {
+                return { success: false, message: "Unable to login" };
+            }
             setUser(data.user);
+            return { success: true };
         } catch (error) {
             console.log(error);
+            return {
+                success: false,
+                message: error.response?.data?.message || "Login failed. Please try again."
+            };
         } finally {
             setLoading(false);
         }
@@ -23,10 +30,17 @@ export const useAuth = () => {
         setLoading(true);
         try {
             const data = await register({ username, email, password });
-            if (!data?.user) return;
+            if (!data?.user) {
+                return { success: false, message: "Unable to register" };
+            }
             setUser(data.user);
+            return { success: true };
         } catch (error) {
             console.log(error);
+            return {
+                success: false,
+                message: error.response?.data?.message || "Registration failed. Please try again."
+            };
         } finally {
             setLoading(false);
         }

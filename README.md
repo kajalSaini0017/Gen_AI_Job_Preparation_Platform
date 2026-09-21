@@ -1,25 +1,29 @@
 # Gen AI Job Preparation Platform
 
-A full-stack platform for preparing for technical interviews with AI-generated interview reports, resume analysis, and personalized feedback.
+A full-stack interview preparation platform that uses Google Gemini to generate interview feedback, reports, and personalized guidance.
+
+## Live Demo
+
+- Frontend: <https://genaijobpreprationplatform.netlify.app>
+- Backend: <https://gen-ai-job-preparation-platform.onrender.com>
 
 ## Features
 
-- User registration and login
-- JWT-based authentication
+- User registration and login with JWT authentication
 - Resume upload for interview preparation
 - AI-generated interview reports using Google Gemini
 - Interview report history
 - Resume PDF generation
-- React frontend with a Node.js and Express backend
+- Responsive React frontend with a Node.js and Express API
 
----
-## Frontend Live Link
-https://genaijobpreprationplatform.netlify.app
+## Tech Stack
 
----
-
-## Backend Live Link
-https://gen-ai-job-preparation-platform.onrender.com
+- Frontend: React, Vite, React Router, Tailwind CSS
+- Backend: Node.js, Express, Mongoose
+- Database: MongoDB
+- Authentication: JWT and HTTP cookies
+- AI: Google Gemini API
+- Deployment: Netlify and Render
 
 ## Project Structure
 
@@ -29,9 +33,18 @@ https://gen-ai-job-preparation-platform.onrender.com
 │   ├── server.js
 │   ├── package.json
 │   └── src/
-└── Frontend/
-    ├── package.json
-    └── src/
+│       ├── config/
+│       ├── controllers/
+│       ├── middlewares/
+│       ├── models/
+│       ├── routers/
+│       ├── services/
+│       └── utils/
+├── Frontend/
+│   ├── public/
+│   ├── package.json
+│   └── src/
+└── README.md
 ```
 
 ## Requirements
@@ -41,14 +54,23 @@ https://gen-ai-job-preparation-platform.onrender.com
 - MongoDB database
 - Google Gemini API key
 
-## Backend Setup
+## Local Setup
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/kajalSaini0017/Gen_AI_Job_Preparation_Platform.git
+cd Gen_AI_Job_Preparation_Platform
+```
+
+### Backend
 
 ```bash
 cd Backend
 npm install
 ```
 
-Create `Backend/.env`:
+Create `Backend/.env` and add your private credentials:
 
 ```env
 MONGO_URL=your_mongodb_connection_string
@@ -62,11 +84,11 @@ Start the backend in development mode:
 npm run dev
 ```
 
-The backend runs at `http://localhost:3000`.
+The API runs at `http://localhost:3000`.
 
-## Frontend Setup
+### Frontend
 
-Open a new terminal:
+Open a second terminal:
 
 ```bash
 cd Frontend
@@ -74,27 +96,48 @@ npm install
 npm run dev
 ```
 
-Open the local URL displayed by Vite, usually `http://localhost:5173`.
+Vite will print the local frontend URL, usually `http://localhost:5173`.
 
-To create a production build:
+## Frontend Scripts
+
+Run these commands from the `Frontend` directory:
 
 ```bash
-npm run build
+npm run dev      # Start the development server
+npm run build    # Create a production build
+npm run lint     # Run ESLint
+npm run preview  # Preview the production build locally
 ```
+
+## Deployment
+
+The frontend is deployed on Netlify and the backend is deployed on Render.
+
+For a new deployment, configure the backend environment variables from the local setup section in the hosting provider. Keep `.env` files and API keys out of GitHub. The frontend deployment should publish the `Frontend/dist` directory after running `npm run build`.
 
 ## API Routes
 
 ### Authentication
 
-- `POST /api/auth/register` - Create an account
-- `POST /api/auth/login` - Log in
-- `GET /api/auth/logout` - Log out
-- `GET /api/auth/get-me` - Get the logged-in user
+| Method | Route | Purpose |
+| --- | --- | --- |
+| POST | `/api/auth/register` | Create an account |
+| POST | `/api/auth/login` | Log in |
+| GET | `/api/auth/logout` | Log out |
+| GET | `/api/auth/get-me` | Get the logged-in user |
 
 ### Interviews
 
-- `POST /api/interview` - Generate an interview report
-- `GET /api/interview` - Get the user's interview reports
-- `GET /api/interview/report/:interviewId` - Get a report by ID
-- `POST /api/interview/resume/pdf/:interviewReportId` - Generate a resume PDF
+| Method | Route | Purpose |
+| --- | --- | --- |
+| POST | `/api/interview` | Generate an interview report |
+| GET | `/api/interview` | Get the user's interview reports |
+| GET | `/api/interview/report/:interviewId` | Get a report by ID |
+| POST | `/api/interview/resume/pdf/:interviewReportId` | Generate a resume PDF |
+
+## Security Notes
+
+- Never commit `Backend/.env` or any API keys.
+- Use a strong, unique `JWT_SECRET` in production.
+- Configure the backend CORS origin to match the deployed frontend URL.
 

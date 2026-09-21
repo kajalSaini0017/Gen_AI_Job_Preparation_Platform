@@ -11,38 +11,38 @@ const NAV_ITEMS = [
 const QuestionCard = ({ item, index }) => {
   const [open, setOpen] = useState(false)
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden transition hover:border-gray-600 min-w-0">
+    <div className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-indigo-200 hover:shadow-lg">
       <button
         type="button"
         aria-expanded={open}
-        className="w-full flex items-start gap-2 p-3 lg:gap-3 lg:p-4 text-left cursor-pointer select-none"
+        className="flex w-full cursor-pointer select-none items-start gap-2 p-3 text-left lg:gap-3 lg:p-4"
         onClick={() => setOpen(!open)}
       >
-        <span className="shrink-0 flex items-center justify-center w-7 h-7 text-pink-400 text-xs font-bold bg-pink-500/10 border border-pink-500/20 rounded-md">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-indigo-200 bg-indigo-100 text-xs font-bold text-indigo-700">
           Q{index + 1}
         </span>
-        <p className="min-w-0 flex-1 text-xs md:text-sm lg:text-base font-medium text-gray-100 leading-relaxed wrap-break-word">
+        <p className="min-w-0 flex-1 text-xs font-medium leading-relaxed text-slate-700 md:text-sm lg:text-base wrap-break-word">
           {item.question}
         </p>
-        <span className={`shrink-0 flex items-center justify-center w-6 h-6 rounded-full border text-sm transition-colors ${open ? "border-pink-500/40 bg-pink-500/10 text-pink-400" : "border-gray-600 text-gray-400"}`}>
+        <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-sm transition-colors ${open ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-300 text-slate-500"}`}>
           {open ? '−' : '+'}
         </span>
       </button>
       {open && (
-        <div className="mx-3 mb-3 lg:mx-4 lg:mb-4 px-3 pb-3 lg:px-4 lg:pb-4 flex flex-col gap-3 border-t border-gray-700 bg-gray-900/40 rounded-b-md pt-3">
+        <div className="mx-3 mb-3 flex flex-col gap-3 rounded-b-md border-t border-slate-200 bg-slate-50 px-3 pb-3 pt-3 lg:mx-4 lg:mb-4 lg:px-4 lg:pb-4">
           <div className="min-w-0">
-            <span className="inline-flex items-center gap-1.5 text-purple-300 text-xs font-bold uppercase tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400" aria-hidden="true"></span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-violet-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-violet-500" aria-hidden="true"></span>
               Intention
             </span>
-            <p className="text-xs md:text-sm text-gray-300 mt-1 leading-relaxed wrap-break-word">{item.intention}</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-600 md:text-sm wrap-break-word">{item.intention}</p>
           </div>
           <div className="min-w-0">
-            <span className="inline-flex items-center gap-1.5 text-green-400 text-xs font-bold uppercase tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" aria-hidden="true"></span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
               Model Answer
             </span>
-            <p className="text-xs md:text-sm text-gray-300 mt-1 leading-relaxed wrap-break-word">{item.answer}</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-600 md:text-sm wrap-break-word">{item.answer}</p>
           </div>
         </div>
       )}
@@ -51,18 +51,18 @@ const QuestionCard = ({ item, index }) => {
 }
 
 const RoadMapDay = ({ day }) => (
-  <div className="flex flex-col gap-2 pl-12 relative py-3">
-    <div className="absolute left-6 top-4 w-3.5 h-3.5 rounded-full bg-gray-900 border-2 border-pink-500"></div>
+  <div className="relative flex flex-col gap-2 py-3 pl-12">
+    <div className="absolute left-6 top-4 h-3.5 w-3.5 rounded-full border-2 border-indigo-500 bg-white"></div>
     <div className="flex items-center gap-2">
-      <span className="text-xs font-bold text-pink-500 bg-pink-500/10 border border-pink-500/25 rounded-full px-2 py-0.5">
+      <span className="rounded-full border border-indigo-200 bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-700">
         Day {day.day}
       </span>
-      <h3 className="text-sm md:text-base font-semibold text-gray-100">{day.focus}</h3>
+      <h3 className="text-sm font-semibold text-slate-900 md:text-base">{day.focus}</h3>
     </div>
-    <ul className="flex flex-col gap-1 text-xs md:text-sm text-gray-400">
+    <ul className="flex flex-col gap-1 text-xs text-slate-600 md:text-sm">
       {day.tasks.map((task, i) => (
         <li key={i} className="flex items-start gap-2">
-          <span className="w-1 h-1 rounded-full bg-gray-500 mt-2"></span>
+          <span className="mt-2 h-1 w-1 rounded-full bg-slate-500"></span>
           {task}
         </li>
       ))}
@@ -83,11 +83,11 @@ const Interview = () => {
   }, [interviewId])
 
   if (loading) {
-    return <main className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center"><p className="text-sm text-gray-400">Interview report loading...</p></main>
+    return <main className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center"><p className="text-sm text-slate-500">Interview report loading...</p></main>
   }
 
   if (!report) {
-    return <main className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6"><section className="text-center bg-gray-800 border border-gray-700 rounded-lg p-6"><h1 className="text-lg font-semibold">Interview report not found</h1><p className="text-sm text-gray-400 mt-2">Generate an interview plan first.</p></section></main>
+    return <main className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center p-6"><section className="rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm"><h1 className="text-lg font-semibold text-slate-900">Interview report not found</h1><p className="mt-2 text-sm text-slate-500">Generate an interview plan first.</p></section></main>
   }
 
   const technicalQuestions = report.technicalQuestions || []
@@ -97,53 +97,54 @@ const Interview = () => {
   const topSkillGap = skillGaps.find(({ severity }) => severity === 'high') || skillGaps[0]
 
   const scoreColor =
-    report.matchScore >= 80 ? "border-green-500" :
-      report.matchScore >= 60 ? "border-yellow-500" : "border-red-500"
+    report.matchScore >= 80 ? "border-emerald-500" :
+      report.matchScore >= 60 ? "border-amber-500" : "border-red-500"
 
   return (
-    <div className="w-full min-h-screen bg-gray-900 text-gray-100 flex flex-col md:flex-row p-4 md:p-6">
+    <div className="w-full min-h-screen bg-slate-50 text-slate-800 flex flex-col p-4 md:flex-row md:p-6">
       {/* Left Nav */}
-      <nav className="w-full md:w-44 lg:w-56 shrink-0 p-3 lg:p-4 flex flex-row items-start md:flex-col justify-between md:justify-start gap-3 md:gap-4 lg:gap-6">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">Sections</p>
-          {NAV_ITEMS.map(item => (
-            <button
-              key={item.id}
-              className={`flex items-center gap-2 w-full px-2 py-1.5 lg:px-3 lg:py-2 rounded-md text-xs lg:text-sm transition ${activeNav === item.id ? "bg-pink-500/10 text-pink-500" : "text-gray-400 hover:bg-gray-700 hover:text-gray-100"
-                }`}
-              onClick={() => setActiveNav(item.id)}
-            >
-              <span className={`shrink-0 flex items-center justify-center w-6 h-6 border border-current text-[10px] font-bold ${item.iconShape || 'rounded-md'}`}>
-                {item.icon}
-              </span>
-              {item.label}
-            </button>
-          ))}
+      <nav className="w-full shrink-0 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm md:w-44 lg:w-56 lg:p-4">
+        <div className="flex flex-row items-start justify-between gap-3 md:flex-col md:justify-start lg:gap-6">
+          <div className="w-full">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Sections</p>
+            {NAV_ITEMS.map(item => (
+              <button
+                key={item.id}
+                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs transition lg:px-3 lg:py-2 lg:text-sm ${activeNav === item.id ? "bg-indigo-100 text-indigo-700" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}
+                onClick={() => setActiveNav(item.id)}
+              >
+                <span className={`flex h-6 w-6 shrink-0 items-center justify-center border border-current text-[10px] font-bold ${item.iconShape || 'rounded-md'}`}>
+                  {item.icon}
+                </span>
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            aria-label="Download resume"
+            title="Download resume"
+            onClick={() => getResumePdf(interviewId)}
+            disabled={!interviewId || loading}
+            className="shrink-0 whitespace-nowrap rounded-md bg-indigo-700 px-2 py-1.5 text-[11px] text-white transition hover:bg-indigo-800 sm:px-3 sm:text-xs lg:px-3 lg:py-2 lg:text-sm"
+          >
+            <span aria-hidden="true">↓</span>
+            <span className="sm:hidden">Resume</span>
+            <span className="hidden sm:inline">Download Resume</span>
+          </button>
         </div>
-        <button
-          type="button"
-          aria-label="Download resume"
-          title="Download resume"
-          onClick={() => getResumePdf(interviewId)}
-          disabled={!interviewId || loading}
-          className="shrink-0 flex items-center gap-1 bg-pink-500 text-white text-[11px] sm:text-xs lg:text-sm px-2 sm:px-3 lg:px-3 py-1.5 lg:py-2 rounded-md hover:bg-pink-600 transition whitespace-nowrap"
-        >
-          <span aria-hidden="true">↓</span>
-          <span className="sm:hidden">Resume</span>
-          <span className="hidden sm:inline">Download Resume</span>
-        </button>
       </nav>
 
       {/* Divider */}
-      <div className="hidden md:block w-px bg-gray-700" />
+      <div className="hidden w-px bg-slate-200 md:block" />
 
       {/* Center Content */}
-      <main className="min-w-0 flex-1 p-3 md:p-4 lg:p-6 overflow-y-auto max-h-[calc(100vh-3rem)]">
+      <main className="min-w-0 flex-1 overflow-y-auto p-3 md:p-4 lg:max-h-[calc(100vh-3rem)] lg:p-6">
         {activeNav === "technical" && (
           <section>
-            <div className="flex items-baseline gap-2 mb-4 pb-2 border-b border-gray-700">
-              <h2 className="text-base md:text-lg lg:text-xl font-bold">Technical Questions</h2>
-              <span className="text-xs md:text-sm text-gray-400 bg-gray-700 px-2 py-0.5 rounded-full border border-gray-600">
+            <div className="mb-4 flex items-baseline gap-2 border-b border-slate-200 pb-2">
+              <h2 className="text-base font-bold text-slate-900 md:text-lg lg:text-xl">Technical Questions</h2>
+              <span className="rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-800 md:text-sm">
                 {technicalQuestions.length} questions
               </span>
             </div>
@@ -157,9 +158,9 @@ const Interview = () => {
 
         {activeNav === "behavioral" && (
           <section>
-            <div className="flex items-baseline gap-2 mb-4 pb-2 border-b border-gray-700">
-              <h2 className="text-base md:text-lg lg:text-xl font-bold">Behavioral Questions</h2>
-              <span className="text-xs md:text-sm text-gray-400 bg-gray-700 px-2 py-0.5 rounded-full border border-gray-600">
+            <div className="mb-4 flex items-baseline gap-2 border-b border-slate-200 pb-2">
+              <h2 className="text-base font-bold text-slate-900 md:text-lg lg:text-xl">Behavioral Questions</h2>
+              <span className="rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-800 md:text-sm">
                 {behavioralQuestions.length} questions
               </span>
             </div>
@@ -173,14 +174,14 @@ const Interview = () => {
 
         {activeNav === "roadmap" && (
           <section>
-            <div className="flex items-baseline gap-2 mb-4 pb-2 border-b border-gray-700">
-              <h2 className="text-base md:text-lg lg:text-xl font-bold">Preparation Road Map</h2>
-              <span className="text-xs md:text-sm text-gray-400 bg-gray-700 px-2 py-0.5 rounded-full border border-gray-600">
+            <div className="mb-4 flex items-baseline gap-2 border-b border-slate-200 pb-2">
+              <h2 className="text-base font-bold text-slate-900 md:text-lg lg:text-xl">Preparation Road Map</h2>
+              <span className="rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-800 md:text-sm">
                 {preparationPlan.length}-day plan
               </span>
             </div>
             <div className="relative">
-              <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-linear-to-b from-pink-500 to-pink-500/10"></div>
+              <div className="absolute bottom-0 left-7 top-0 w-0.5 bg-gradient-to-b from-indigo-500 to-indigo-200"></div>
               {preparationPlan.map(day => (
                 <RoadMapDay key={day.day} day={day} />
               ))}
@@ -190,20 +191,20 @@ const Interview = () => {
       </main>
 
       {/* Divider */}
-      <div className="hidden md:block w-px bg-gray-700" />
+      <div className="hidden w-px bg-slate-200 md:block" />
 
       {/* Right Sidebar */}
-      <aside className="w-full md:w-44 lg:w-64 shrink-0 p-3 lg:p-6 flex flex-col gap-4 lg:gap-6">
-        <section className="bg-gray-800 border border-gray-700 rounded-lg p-3 lg:p-4 min-w-0">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-gray-100">Profile Match</h2>
-            <span className="text-xs text-gray-400">AI analysis</span>
+      <aside className="flex w-full shrink-0 flex-col gap-4 p-3 md:w-44 lg:w-64 lg:gap-6 lg:p-6">
+        <section className="min-w-0 rounded-xl border border-slate-200 bg-white p-3 shadow-sm lg:p-4">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-slate-900">Profile Match</h2>
+            <span className="text-xs text-slate-500">AI analysis</span>
           </div>
-          <div className={`mx-auto w-24 h-24 lg:w-32 lg:h-32 rounded-full border-6 lg:border-8 ${scoreColor} flex flex-col items-center justify-center`}>
-            <span className="text-2xl lg:text-3xl font-bold text-gray-100">{report.matchScore}%</span>
-            <span className="text-xs text-gray-400">match score</span>
+          <div className={`mx-auto flex h-24 w-24 flex-col items-center justify-center rounded-full border-6 lg:h-32 lg:w-32 lg:border-8 ${scoreColor}`}>
+            <span className="text-2xl font-bold text-slate-900 lg:text-3xl">{report.matchScore}%</span>
+            <span className="text-xs text-slate-500">match score</span>
           </div>
-          <p className="text-xs text-gray-400 text-center mt-4">
+          <p className="mt-4 text-center text-xs text-slate-600">
             {report.matchScore >= 80
               ? "Your profile is a strong match for this role."
               : report.matchScore >= 60
@@ -213,20 +214,20 @@ const Interview = () => {
 
         </section>
 
-        <section className="bg-gray-800 border border-gray-700 rounded-lg p-3 lg:p-4 min-w-0">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold text-gray-100">Skill Gaps</h2>
-            <span className="text-xs text-gray-500">{skillGaps.length} skills</span>
+        <section className="min-w-0 rounded-xl border border-slate-200 bg-white p-3 shadow-sm lg:p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-slate-900">Skill Gaps</h2>
+            <span className="text-xs text-slate-500">{skillGaps.length} skills</span>
           </div>
           <ul className="flex flex-col gap-3">
             {skillGaps.map(({ skill, severity }) => (
-              <li key={skill} className="min-w-0 flex items-center justify-between gap-2 py-1 text-sm">
-                <span className="min-w-0 flex-1 text-gray-300 wrap-break-word">{skill}</span>
-                <span className={`shrink-0 text-xs capitalize px-2 py-0.5 rounded-full border ${severity === 'high'
-                    ? 'text-red-400 bg-red-400/10 border-red-400/20'
+              <li key={skill} className="flex min-w-0 items-center justify-between gap-2 py-1 text-sm">
+                <span className="min-w-0 flex-1 text-slate-600 wrap-break-word">{skill}</span>
+                <span className={`shrink-0 rounded-full border px-2 py-0.5 text-xs capitalize ${severity === 'high'
+                    ? 'border-red-200 bg-red-50 text-red-600'
                     : severity === 'medium'
-                      ? 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
-                      : 'text-green-400 bg-green-400/10 border-green-400/20'
+                      ? 'border-amber-200 bg-amber-50 text-amber-700'
+                      : 'border-emerald-200 bg-emerald-50 text-emerald-700'
                   }`}>
                   {severity}
                 </span>
@@ -235,15 +236,15 @@ const Interview = () => {
           </ul>
         </section>
 
-        <section className="border border-pink-500/20 bg-pink-500/5 rounded-lg p-3 lg:p-4 min-w-0">
-          <p className="text-xs uppercase tracking-wide font-bold text-pink-400">Next step</p>
-          <p className="text-sm text-gray-300 mt-2 leading-relaxed">
+        <section className="min-w-0 rounded-xl border border-indigo-200 bg-indigo-50 p-3 lg:p-4">
+          <p className="text-xs font-bold uppercase tracking-wide text-indigo-700">Next step</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-800">
             {topSkillGap ? `Focus on ${topSkillGap.skill} fundamentals before your next practice session.` : 'Keep practicing the questions in this report.'}
           </p>
           <button
             type="button"
             onClick={() => setActiveNav('roadmap')}
-            className="mt-3 text-xs font-semibold text-pink-400 hover:text-pink-300 transition"
+            className="mt-3 text-xs font-semibold text-indigo-700 transition hover:text-indigo-900"
           >
             View preparation roadmap →
           </button>

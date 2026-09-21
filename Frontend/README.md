@@ -5,7 +5,7 @@ React and Vite frontend for the Gen AI Job Preparation Platform.
 ## Features
 
 - User registration and login screens
-- Protected home and interview pages
+- Protected report, contact and interview pages
 - Interview report generation and report details
 - Resume upload workflow
 - API requests with Axios and cookie credentials

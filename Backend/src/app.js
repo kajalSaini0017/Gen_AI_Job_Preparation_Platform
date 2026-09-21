@@ -9,24 +9,25 @@ const app = express();
 
 app.use(express.json())
 app.use(cookieParser());
+
 app.use(cors({
-    origin : "https://genaijobpreprationplatform.netlify.app",
-    credentials : true
+    origin: "https://genaijobpreprationplatform.netlify.app",
+    credentials: true
 }))
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("Gen AI Job Prepration Platform is running")
 })
 
 /**
  * Use Authentication Routes 
  */
-app.use("/api/auth",authRoutes);
+app.use("/api/auth", authRoutes);
 
 /**
  * Use Interview Routes
  */
-app.use("/api/interview",interviewRouter)
+app.use("/api/interview", interviewRouter)
 
 
 module.exports = app;

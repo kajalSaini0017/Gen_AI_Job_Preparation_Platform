@@ -10,61 +10,76 @@ export function Login() {
     
    const [email,setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");
 
    async function handleSubmit(event){
          event.preventDefault();
-         await handleLogin({
+         if (!email.trim() || !password.trim()) {
+            setErrorMessage("Email and password are required.");
+            return;
+         }
+
+         setErrorMessage("");
+         const result = await handleLogin({
             email,
             password
-         })
-         navigate("/")
+         });
+         if (!result?.success) {
+            setErrorMessage(result?.message || "Login failed. Please try again.");
+            return;
+         }
+         navigate("/");
 
    }
 
    if(loading){
-      return <main className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center"><h1>Loading.....</h1></main>
+      return <main className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center"><h1>Loading.....</h1></main>
    }
    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-gray-100 p-4">
-         <div className="w-full max-w-md bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-center text-gray-100 mb-6">
+      <div className="flex flex-col gap-5 min-h-screen items-center justify-center bg-slate-50 p-4 text-slate-800">
+         <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-indigo-300/30 md:p-8">
+            <h2 className="mb-6 text-center text-2xl font-bold text-slate-900">
                Login
             </h2>
+            {errorMessage && <p className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>}
             <form className="space-y-5" onSubmit={handleSubmit}>
                {/* Email Field */}
                <div>
-                  <label className="block text-gray-300 mb-2">Email</label>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
                   <input onChange={(e)=>{setEmail(e.target.value)}}
                      type="email"
                      placeholder="Enter your email"
-                     className="w-full px-4 py-2 bg-gray-900 border border-gray-700 text-gray-100 placeholder:text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                     className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                   />
                </div>
 
                {/* Password Field */}
                <div>
-                  <label className="block text-gray-300 mb-2">Password</label>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">Password</label>
                   <input  onChange={(e)=>{setPassword(e.target.value)}}
                      type="password"
                      placeholder="Enter your password"
-                     className="w-full px-4 py-2 bg-gray-900 border border-gray-700 text-gray-100 placeholder:text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                     className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                   />
                </div>
 
                {/* Submit Button */}
                <button
                   type="submit"
-                  className="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition duration-200 cursor-pointer"
+                  className="w-full cursor-pointer rounded-lg bg-indigo-700 py-2.5 text-white transition duration-200 hover:bg-indigo-800"
                >
                   Login
                </button>
             </form>
 
             {/* Extra Links */}
-            <p className="text-sm text-gray-400 mt-4 text-center">
+            <p className="mt-4 text-center text-sm text-slate-500">
                Don’t have an account?{" "}
-               <Link className="text-pink-400 hover:text-pink-300" to="/register">Register</Link>
+               <Link className="font-semibold text-indigo-700 hover:text-indigo-800" to="/register">Register</Link>
             </p>
+         </div>
+         <div>
+            <p className="text-black">Go Back To The Desktop <span className="text-indigo-700 font-bold hover:text-indigo-600 cursor-pointer" onClick={()=>navigate("/")}>Home</span></p>
          </div>
       </div>
    )
