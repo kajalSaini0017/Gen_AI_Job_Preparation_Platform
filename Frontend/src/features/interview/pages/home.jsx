@@ -5,7 +5,7 @@ import { useInterview } from "../hooks/interview.hook";
 
 function Home() {
 
-    const { loading, generateReport } = useInterview()
+    const { loading, error, generateReport } = useInterview()
     const [jobDescription, setJobDescription] = useState("")
     const [selfDescription, setSelfDescription] = useState("")
     const resumeFileRef = useRef(null);
@@ -142,6 +142,11 @@ function Home() {
                         {loading ? "Generating..." : "✦ Generate My Interview Strategy"}
                     </button>
                 </div>
+                {error && (
+                    <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {error}
+                    </p>
+                )}
             </div>
         </div>
 

@@ -7,6 +7,8 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_API_KEY
 });
 
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+
 const interviewReportJsonSchema = {
     type: "object",
 
@@ -189,7 +191,7 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
     `
 
     const interaction = await ai.interactions.create({
-        model: "gemini-3.5-flash",
+        model: GEMINI_MODEL,
         input: prompt,
         response_format: {
             type: 'text',

@@ -29,5 +29,19 @@ app.use("/api/auth", authRoutes);
  */
 app.use("/api/interview", interviewRouter)
 
+app.use((error, req, res, next) => {
+    console.error("API error:", error);
+
+    if (error.status === 429 || error.statusCode === 429) {
+        return res.status(429).json({
+            message: "AI service rate limit reached. Please wait a minute and try again."
+        });
+    }
+
+    res.status(error.statusCode || 500).json({
+        message: "Unable to generate the interview report right now. Please try again."
+    });
+});
+
 
 module.exports = app;
