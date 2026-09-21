@@ -7,7 +7,7 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_API_KEY
 });
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-3.7-flash";
 
 const interviewReportJsonSchema = {
     type: "object",
